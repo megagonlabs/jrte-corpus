@@ -2,7 +2,7 @@
 
 all:lint
 
-lint:lint_markdown lint_python
+lint:lint_markdown lint_python check_data check_source_exist
 
 lint_markdown:
 	find *.md data/ docs/ | grep '\.md$$' \
@@ -37,4 +37,13 @@ jsonlint:
 
 pydocstyle:
 	pydocstyle ./scripts --ignore=D100,D101,D102,D103,D104,D105,D107,D203,D212,D400,D415
+
+check_data:
+	find . -name '*.tsv' | xargs python3 scripts/check_data.py
+
+check_source_exist:
+	python3 scripts/check_source_exist.py \
+	    --source data/rte.lrec2020_sem_short.tsv \
+	    --data data/rte.lrec2020_mlm.tsv \
+	    --op data/operation.rte.lrec2020_mlm.tsv
 
