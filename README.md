@@ -2,7 +2,8 @@
 # Japanese Realistic Textual Entailment Corpus
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
-[![CircleCI](https://circleci.com/gh/megagonlabs/jrte-corpus.svg?style=svg&circle-token=c942913b1bc4412f79e4fcdcca521984a19ff412)](https://circleci.com/gh/megagonlabs/jrte-corpus)
+[![CI](https://github.com/megagonlabs/jrte-corpus/actions/workflows/ci.yml/badge.svg)](https://github.com/megagonlabs/jrte-corpus/actions/workflows/ci.yml)
+[![Typos](https://github.com/megagonlabs/jrte-corpus/actions/workflows/typos.yml/badge.svg)](https://github.com/megagonlabs/jrte-corpus/actions/workflows/typos.yml)
 
 ## Overview
 
