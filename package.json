@@ -1,0 +1,16 @@
+{
+    "author": "",
+    "description": "",
+    "devDependencies": {
+        "markdown-it": ">=12.3.2",
+        "markdownlint-cli": "^0.32.2",
+        "pyright": "^1.1.280"
+    },
+    "license": "",
+    "main": "",
+    "name": "pyright-exec",
+    "scripts": {
+        "pyright": "pyright"
+    },
+    "version": "1.0.0"
+}

@@ -7,28 +7,28 @@ import typing
 import unicodedata
 
 filetype2length = {
-    'rhr': 5,
-    'pn': 5,
-    'rte': 7,
-    'operation': 4,
+    "rhr": 5,
+    "pn": 5,
+    "rte": 7,
+    "operation": 4,
 }
 filetype2labels: typing.Dict[str, typing.Set[str]] = {
-    'rhr': {"0", "1"},
-    'pn': {"0", "1", "-1"},
-    'rte': {"0", "1"},
+    "rhr": {"0", "1"},
+    "pn": {"0", "1", "-1"},
+    "rte": {"0", "1"},
 }
 
 filetype2judgeindex: typing.Dict[str, int] = {
-    'rhr': 3,
-    'pn': 3,
-    'rte': 4,
+    "rhr": 3,
+    "pn": 3,
+    "rte": 4,
 }
 
 filetype2contentspan: typing.Dict[str, typing.Tuple[int, int]] = {
-    'rhr': (2, 3),
-    'pn': (2, 3),
-    'rte': (2, 4),
-    'operation': (1, 4),
+    "rhr": (2, 3),
+    "pn": (2, 3),
+    "rte": (2, 4),
+    "operation": (1, 4),
 }
 
 
@@ -69,8 +69,7 @@ def _check_evidence(text: str, hyp: str) -> typing.Optional[str]:
             return "Invalid evidence format"
         elif not isinstance(k, str):
             return "Invalid evidence format"
-        elif k not in {'<1>', '<unknown>'} \
-                and k not in hyp:
+        elif k not in {"<1>", "<unknown>"} and k not in hyp:
             return "Invalid evidence format"
     return None
 
@@ -80,23 +79,23 @@ def check_line(filetype: str, line: str) -> typing.List[str]:
     if line != unicodedata.normalize("NFKC", line):
         return ["Not NFKC normalized"]
 
-    items = line[:-1].split('\t')
+    items = line[:-1].split("\t")
     errors = []
 
     if filetype is None:
-        return ['Invalid filetype']
-    if filetype != 'operation' and not items[0].startswith(filetype):
-        errors.append('Invalid ID prefix')
+        return ["Invalid filetype"]
+    if filetype != "operation" and not items[0].startswith(filetype):
+        errors.append("Invalid ID prefix")
 
     # Column number check
     length = filetype2length.get(filetype)
     if len(items) != length:
         errors.append(f"Invalid column number: {length}")
 
-    if filetype == 'operation':
-        if items[2] not in {'replace', 'insert'}:
+    if filetype == "operation":
+        if items[2] not in {"replace", "insert"}:
             errors.append(f"Invalid operation: {items[2]}")
-        if items[3] not in {'hypothesis', 'premise'}:
+        if items[3] not in {"hypothesis", "premise"}:
             errors.append(f"Invalid target: {items[2]}")
         return errors
 
@@ -104,7 +103,7 @@ def check_line(filetype: str, line: str) -> typing.List[str]:
     if items[1] not in labels:
         errors.append(f"Invalid label: [{items[1]}]")
 
-    if items[-1] not in {'train', 'dev', 'test'}:
+    if items[-1] not in {"train", "dev", "test"}:
         errors.append(f"Invalid usage: [{items[-1]}]")
 
     judge_index = filetype2judgeindex[filetype]
@@ -112,7 +111,7 @@ def check_line(filetype: str, line: str) -> typing.List[str]:
     if err:
         errors.append(err)
 
-    if filetype == 'rte':
+    if filetype == "rte":
         err = _check_evidence(items[5], items[2])
         if err:
             errors.append(err)
@@ -122,13 +121,13 @@ def check_line(filetype: str, line: str) -> typing.List[str]:
 
 def _get_id_and_content(filetype: str, line: str) -> typing.Tuple[str, str]:
     (c_start, c_end) = filetype2contentspan[filetype]
-    items = line[:-1].split('\t')
+    items = line[:-1].split("\t")
     myid: str = items[0]
-    return myid, '\t'.join(items[c_start: c_end])
+    return myid, "\t".join(items[c_start:c_end])
 
 
 def check(path_in: str) -> bool:
-    filetype = os.path.basename(path_in).split('.')[0]
+    filetype = os.path.basename(path_in).split(".")[0]
     ng: bool = False
     ids = set()
     contents = set()
@@ -136,22 +135,22 @@ def check(path_in: str) -> bool:
         for lid, line in enumerate(inf):
             errors = check_line(filetype, line)
             if len(errors) > 0:
-                sys.stdout.write(f'Error\t{path_in}\t{line}\n')
+                sys.stdout.write(f"Error\t{path_in}\t{line}\n")
                 sys.stdout.write(f'{" ".join(errors)}\n')
                 ng = True
 
             myid, content = _get_id_and_content(filetype, line)
 
             if myid in ids:
-                sys.stdout.write(f'Error\t{path_in}\t{line}\n')
-                sys.stdout.write('ID is duplicated\n')
+                sys.stdout.write(f"Error\t{path_in}\t{line} ({lid})\n")
+                sys.stdout.write("ID is duplicated\n")
                 ng = True
             else:
                 ids.add(myid)
 
             if content in contents:
-                sys.stdout.write(f'Error\t{path_in}\t{line}\n')
-                sys.stdout.write('Content is duplicated\n')
+                sys.stdout.write(f"Error\t{path_in}\t{line}\n")
+                sys.stdout.write("Content is duplicated\n")
                 ng = True
             else:
                 contents.add(content)
@@ -168,5 +167,5 @@ def main() -> None:
         sys.exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
