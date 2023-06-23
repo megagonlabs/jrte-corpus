@@ -64,7 +64,7 @@ def _check_evidence(text: str, hyp: str) -> typing.Optional[str]:
     if not isinstance(evd, list):
         return "Invalid format"
 
-    for (k, v) in evd:
+    for k, v in evd:
         if not isinstance(v, int):
             return "Invalid evidence format"
         elif not isinstance(k, str):
