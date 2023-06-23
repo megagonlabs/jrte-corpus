@@ -12,7 +12,7 @@ POETRY_NO_ROOT:= --no-root
 setup_python:
 	poetry install $(POETRY_OPTION)
 
-lint_python: pyright black flake8 isort yamllint jsonlint pydocstyle
+lint_python: pyright black flake8 isort yamllint jsonlint pydocstyle lint_cff
 
 pyright:
 	npx pyright
@@ -47,3 +47,5 @@ check_source_exist:
 	    --data data/rte.lrec2020_mlm.tsv \
 	    --op data/operation.rte.lrec2020_mlm.tsv
 
+lint_cff:
+	cffconvert --validate
