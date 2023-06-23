@@ -16,6 +16,9 @@ pydocstyle = ">=5.1.1"
 black = ">=21.12b0"
 toml = "^0.10.2"
 
+[tool.poetry.group.dev.dependencies]
+cffconvert = "^2.0.0"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

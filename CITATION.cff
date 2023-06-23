@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this work in a project of yours and write about it, please cite our paper using the following citation data."
+authors:
+  - family-names: Hayashibe
+    given-names: Yuta
+title: Japanese Realistic Textual Entailment Corpus
+url: https://github.com/megagonlabs/jrte-corpus
+preferred-citation:
+  type: conference-paper
+  title: Japanese Realistic Textual Entailment Corpus
+  authors:
+    - family-names: Hayashibe
+      given-names: Yuta
+  isbn: 979-10-95546-34-4
+  collection-title: Proceedings of The 12th Language Resources and Evaluation Conference
+  year: 2020
+  month: 5
+  publisher: 
+    name: European Language Resources Association
+  url: https://aclanthology.org/2020.lrec-1.843
+  start: 6827
+  end: 6834
